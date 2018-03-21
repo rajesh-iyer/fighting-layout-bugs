@@ -35,6 +35,8 @@ public interface LayoutBugDetector {
 
     /**
      * Finds layout bugs in the given web page.
+     * @param webPage picks up a Web page for evaluation
+     * @return Returns a collection of Layout Bugs on the Web Page
      */
     Collection<LayoutBug> findLayoutBugsIn(@Nonnull WebPage webPage);
 }

@@ -36,6 +36,10 @@ public final class RectangularRegion implements Serializable {
      * Constructs a rectangular region covering all
      * pixels from the top left corner (x1,x2)
      * to the bottom right corner (x2,y2).
+     * @param x1 x1
+     * @param y1 y1
+     * @param x2 x2
+     * @param y2 y2
      */
     public RectangularRegion(int x1, int y1, int x2, int y2) {
         if (x1 < 0) {

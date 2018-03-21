@@ -21,21 +21,18 @@ import static com.xpanxion.fightinglayoutbugs.helpers.ImageHelper.getContrast;
 import static com.xpanxion.fightinglayoutbugs.helpers.StringHelper.amountString;
 
 /**
- * <p>
  * Detects horizontal and vertical edges with a simple algorithm.
- * </p><p>
  * For horizontal edges:<ol>
  *     <li>candidates = all pixels which have a {@link #setEdgeMinContrast high contrast} to the pixel below/above.
  *     <li>edges = all horizontal pixel sequences in the candidates of {@link #setSimilarColorMaxContrast similar color}
  *         and with a certain {@link #setMinHorizontalEdgeLength minimal length}
  * </ol>
- * </p><p>
+ 
  * For vertical edges:<ol>
  *     <li>candidates = all pixels which have a {@link #setEdgeMinContrast high contrast} to the pixel on the left/right.
  *     <li>edges = all vertical pixel sequences in the candidates of {@link #setSimilarColorMaxContrast similar color}
  *         and with a certain {@link #setMinVerticalEdgeLength minimal length}
  * </ol>
- * </p>
  */
 public class SimpleEdgeDetector implements EdgeDetector {
 
@@ -48,6 +45,7 @@ public class SimpleEdgeDetector implements EdgeDetector {
      * Sets the minimal contrast two pixels must have to be considered as candidates for an edge, default is <code>1&#46;5</code>
      * -- see <a href="http://trace.wisc.edu/contrast-ratio-examples/TextSamples_6x6x6_On_000000.htm">Web-safe Colored Text shown on #000</a>
      * for a visualization of different contrast values.
+     * @param edgeMinContrast edgeMinContrast
      */
     public void setEdgeMinContrast(double edgeMinContrast) {
         _edgeMinContrast = edgeMinContrast;
@@ -61,6 +59,7 @@ public class SimpleEdgeDetector implements EdgeDetector {
      * Sets the maximal contrast two pixels can have to be considered as having similar colors, default is <code>1&#46;5</code>
      * -- see <a href="http://trace.wisc.edu/contrast-ratio-examples/TextSamples_6x6x6_On_000000.htm">Web-safe Colored Text shown on #000</a>
      * for a visualization of different contrast values.
+     * @param similarColorMaxContrast similarColorMaxContrast
      */
     public void setSimilarColorMaxContrast(double similarColorMaxContrast) {
         _similarColorMaxContrast = similarColorMaxContrast;
@@ -72,6 +71,7 @@ public class SimpleEdgeDetector implements EdgeDetector {
 
     /**
      * Sets the minimal length for detected horizontal edges, default is <code>16</code>.
+     * @param minHorizontalEdgeLength minHorizontalEdgeLength
      */
     public void setMinHorizontalEdgeLength(int minHorizontalEdgeLength) {
         _minHorizontalEdgeLength = minHorizontalEdgeLength;
@@ -83,6 +83,7 @@ public class SimpleEdgeDetector implements EdgeDetector {
 
     /**
      * Sets the minimal length for detected vertical edges, default is <code>10</code>.
+     * @param minVerticalEdgeLength minVerticalEdgeLength
      */
     public void setMinVerticalEdgeLength(int minVerticalEdgeLength) {
         _minVerticalEdgeLength = minVerticalEdgeLength;
@@ -92,6 +93,7 @@ public class SimpleEdgeDetector implements EdgeDetector {
         return _minVerticalEdgeLength;
     }
 
+    @Override
     public boolean[][] detectHorizontalEdgesIn(WebPage webPage) {
         // 1.) Take screenshot without text ...
         final int[][] pixels = webPage.getScreenshot(WITH_ALL_TEXT_TRANSPARENT).pixels;
@@ -141,6 +143,7 @@ public class SimpleEdgeDetector implements EdgeDetector {
         return horizontalEdges;
     }
 
+    @Override
     public boolean[][] detectVerticalEdgesIn(WebPage webPage) {
         // 1.) Take screenshot without text ...
         final int[][] pixels = webPage.getScreenshot(WITH_ALL_TEXT_TRANSPARENT).pixels;

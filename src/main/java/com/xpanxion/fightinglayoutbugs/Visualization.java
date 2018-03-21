@@ -40,6 +40,7 @@ public class Visualization {
 
     /**
      * Registers a listener for the current thread.
+     * @param listener listener
      */
     public static void registerListener(Listener listener) {
         LISTENERS.get().add(listener);
@@ -47,6 +48,7 @@ public class Visualization {
 
     /**
      * Unregisters the given listener for the current thread.
+     * @param listener listener
      */
     public static void unregisterListener(Listener listener) {
         Iterator<Listener> i = LISTENERS.get().iterator();
@@ -60,6 +62,9 @@ public class Visualization {
     /**
      * Calls {@link Listener#algorithmStepFinished Listener.algorithmStepFinished(...)}
      * for all registered listeners for the current thread.
+     * @param stepDescription stepDescription
+     * @param webPage webPage
+     * @param tempResult tempResult
      */
     public static void algorithmStepFinished(String stepDescription, WebPage webPage, Object tempResult) {
         List<Listener> listeners = LISTENERS.get();
@@ -75,6 +80,9 @@ public class Visualization {
     /**
      * Calls {@link Listener#algorithmFinished Listener.algorithmFinished(...)}
      * for all registered listeners for the current thread.
+     * @param stepDescription stepDescription
+     * @param webPage webPage
+     * @param result result
      */
     public static void algorithmFinished(String stepDescription, WebPage webPage, Object result) {
         List<Listener> listeners = LISTENERS.get();

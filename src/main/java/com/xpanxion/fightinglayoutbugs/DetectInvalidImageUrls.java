@@ -106,15 +106,16 @@ public class DetectInvalidImageUrls extends AbstractLayoutBugDetector {
     private HttpClient _httpClient;
     private MockBrowser _mockBrowser;
 
+    @Override
     public Collection<LayoutBug> findLayoutBugsIn(@Nonnull WebPage webPage) {
         try {
             _webPage = webPage;
             _baseUrl = _webPage.getUrl();
             _documentCharset = (String) _webPage.executeJavaScript("return document.characterSet");
             _screenshotTaken = false;
-            _checkedCssUrls = new ConcurrentSkipListSet<String>();
+            _checkedCssUrls = new ConcurrentSkipListSet<>();
             _faviconUrl = "/favicon.ico";
-            _layoutBugs = new ArrayList<LayoutBug>();
+            _layoutBugs = new ArrayList<>();
             _mockBrowser = new MockBrowser(_httpClient == null ? new HttpClient(new MultiThreadedHttpConnectionManager()) : _httpClient);
             try {
                 // 1. Check the src attribute of all visible <img> elements ...
@@ -147,6 +148,7 @@ public class DetectInvalidImageUrls extends AbstractLayoutBugDetector {
 
     /**
      * Sets the {@link HttpClient} used for downloading CSS files and checking image URLs.
+     * @param httpClient httpClient
      */
     public void setHttpClient(HttpClient httpClient) {
         _httpClient = httpClient;
@@ -155,7 +157,7 @@ public class DetectInvalidImageUrls extends AbstractLayoutBugDetector {
     private void checkVisibleImgElements() {
         int numImgElementsWithoutSrcAttribute = 0;
         int numImgElementsWithEmptySrcAttribute = 0;
-        final Set<String> seen = new HashSet<String>();
+        final Set<String> seen = new HashSet<>();
         for (WebElement img : _webPage.findElements(By.tagName("img"))) {
             if (img.isDisplayed()) {
                 final String src = img.getAttribute("src");

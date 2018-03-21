@@ -29,13 +29,11 @@ import static java.util.Collections.singleton;
  * Detects if there is text on the analyzed web page,
  * which is near or overlaps a vertical edge or
  * is truncated at a vertical edge.
- * </p><p>
- * Example:<br />
- * <img src="http://fighting-layout-bugs.googlecode.com/svn/wiki/TextNearOrOverlappingVerticalEdge_example_1.png" alt="example for text which overlaps a vertical edge" />
  * </p>
  */
 public class DetectTextNearOrOverlappingVerticalEdge extends AbstractLayoutBugDetector {
 
+    @Override
     public Collection<LayoutBug> findLayoutBugsIn(@Nonnull WebPage webPage) {
         final boolean[][] text = webPage.getTextPixels();
         final int w = text.length;

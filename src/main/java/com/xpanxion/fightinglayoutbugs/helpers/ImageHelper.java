@@ -196,6 +196,9 @@ public class ImageHelper {
 
     /**
      * Returns {@code null} if the given subImage can not be found in the given image.
+     * @param subImage subImage
+     * @param image image
+     * @return RectangularRegion
      */
     @Nullable
     public static RectangularRegion findFirstSubImageInImage(@Nonnull BufferedImage subImage, @Nonnull BufferedImage image) {
@@ -207,6 +210,9 @@ public class ImageHelper {
      * Returns all rectangular regions where the given {@code subImage} is found in the given {@code image}.
      * Returns an empty collection if no occurrence is found.
      * Pixels of {@code subImage} with an alpha value lower than 255 are ignored.
+     * @param subImage subImage
+     * @param image image
+     * @return Returns a collection of Rectangular Region.
      */
     @Nonnull
     public static Collection<RectangularRegion> findSubImageInImage(@Nonnull BufferedImage subImage, @Nonnull BufferedImage image) {
@@ -214,7 +220,7 @@ public class ImageHelper {
     }
 
     private static List<RectangularRegion> findSubImageInImage(BufferedImage subImage, BufferedImage image, int max) {
-        Map<Integer, List<Point>> rgb2offsets = new HashMap<Integer, List<Point>>();
+        Map<Integer, List<Point>> rgb2offsets = new HashMap<>();
         int sw = subImage.getWidth();
         int sh = subImage.getHeight();
         for (int x = 0; x < sw; ++x) {
@@ -340,6 +346,11 @@ public class ImageHelper {
     /**
      * If <code>pixels</code> has alpha channel, another <code>int[][]</code> array is allocated,
      * filled with the alpha values, and returned, otherwise <code>null</code> is returned.
+     * @param pixels pixels
+     * @param r r
+     * @param g g
+     * @param b b
+     * @return splitIntoChannels
      */
     public static int[][] splitIntoChannels(int[][] pixels, int[][] r, int[][] g, int[][] b) {
         int[][] a = null;
@@ -423,6 +434,8 @@ public class ImageHelper {
 
     /**
      * Blends pixelsWithAlpha into pixels.
+     * @param pixels pixels
+     * @param pixelsWithAlpha pixelsWithAlpha
      */
     public static void blend(int[][] pixels, int[][] pixelsWithAlpha) {
         if (pixels != null && pixelsWithAlpha != null) {
@@ -463,6 +476,8 @@ public class ImageHelper {
 
     /**
      * Find the outlines of all areas where <code>pixels[x][y]</code> is <code>true</code>.
+     * @param pixels pixels
+     * @return boolean[][]
      */
     public static boolean[][] findOutlines(boolean[][] pixels) {
         int w = pixels.length;
@@ -554,6 +569,9 @@ public class ImageHelper {
     /**
      * Determines the contrast between the two given pixels based on the
      * <a href="http://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-procedure">WCAG 2.0 formula</a>.
+     * @param rgb1 rgb1
+     * @param rgb2 rgb2
+     * @return double
      */
     public static double getContrast(int rgb1, int rgb2) {
         double l1 = getLuminance(rgb1);

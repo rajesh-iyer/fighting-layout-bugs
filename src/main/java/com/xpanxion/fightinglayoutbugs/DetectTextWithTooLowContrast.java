@@ -31,10 +31,7 @@ import static java.util.Collections.singleton;
  * <p>
  * Detects text which has low contrast to its background
  * and is therefore hard to read.
- * </p><p>
- * Example:<br />
- * <img src="http://fighting-layout-bugs.googlecode.com/svn/wiki/TextWithTooLowContrast_example_1.png" alt="example for text with low contrast to its background" />
- * /p>
+ * </p>
  */
 public class DetectTextWithTooLowContrast extends AbstractLayoutBugDetector {
 
@@ -124,7 +121,7 @@ public class DetectTextWithTooLowContrast extends AbstractLayoutBugDetector {
                 minY[x] = h;
                 maxY[x] = -1;
             }
-            final Queue<Point> todo = new LinkedList<Point>();
+            final Queue<Point> todo = new LinkedList<>();
             todo.add(new Point(x0, y0));
             while (!todo.isEmpty()) {
                 final Point p = todo.poll();
@@ -230,11 +227,13 @@ public class DetectTextWithTooLowContrast extends AbstractLayoutBugDetector {
 
     /**
      * Sets the minimal contrast considered to be readable, default is <code>1&#46;5</code>.
+     * @param minReadableContrast minReadableContrast
      */
     public void setMinReadableContrast(double minReadableContrast) {
         _minReadableContrast = minReadableContrast;
     }
 
+    @Override
     public Collection<LayoutBug> findLayoutBugsIn(@Nonnull WebPage webPage) {
         Analyzer analyzer = new Analyzer(webPage);
         analyzer.run();

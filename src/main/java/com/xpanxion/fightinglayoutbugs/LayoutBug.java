@@ -39,6 +39,7 @@ public class LayoutBug {
 
     /**
      * Returns a description of this layout bug.
+     * @return description of this layout bug.
      */
     public String getDescription() {
         return _description;
@@ -46,6 +47,7 @@ public class LayoutBug {
 
     /**
      * Returns the URL of the page with this layout bug.
+     * @return the URL of the page with this layout bug.
      */
     public URL getUrl() {
         return _url;
@@ -53,6 +55,7 @@ public class LayoutBug {
 
     /**
      * Returns the HTML of the page with this layout bug.
+     * @return HTML of the page with this layout bug.
      */
     public String getHtml() {
         return _html;
@@ -60,6 +63,7 @@ public class LayoutBug {
 
     /**
      * Returns a screenshot of this layout bug, might return <code>null</code>.
+     * @return file
      */
     public File getScreenshot() {
         return _screenshotFile;

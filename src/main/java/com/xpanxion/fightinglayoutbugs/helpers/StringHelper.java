@@ -22,6 +22,9 @@ public class StringHelper {
 
     /**
      * Null-safe string comparison.
+     * @param s1 s1
+     * @param s2 s2
+     * @return boolean
      */
     public static boolean equals(String s1, String s2) {
         return (s1 == null ? s2 == null : s1.equals(s2));
@@ -30,6 +33,8 @@ public class StringHelper {
     /**
      * Removes leading and trailing whitespaces from <code>s</code> and replaces
      * all sequences of whitespaces inside <code>s</code> with a single space character.
+     * @param s s
+     * @return String
      */
     public static String normalizeSpace(String s) {
         final String result;
@@ -59,6 +64,9 @@ public class StringHelper {
     /**
      * Returns <code>"1 " + noun</code>, if <code>amount == 1</code>,
      * or <code>amount + " " + {@link #englishPluralOf englishPluralOf}(noun)</code> otherwise.
+     * @param amount amount
+     * @param noun noun
+     * @return String
      */
     public static String amountString(long amount, String noun) {
         return (amount == 1 ? "1 " + noun : amount + " " + englishPluralOf(noun));
@@ -94,6 +102,8 @@ public class StringHelper {
      * Converts the given object to a string useful for log messages
      * with special handling of {@link String}s, arrays, {@link Collection}s,
      * {@link Map}s, {@link Class}es and {@link Calendar}s.
+     * @param o o
+     * @return String
      */
     public static String asString(Object o) {
         final StringBuilder sb = new StringBuilder();

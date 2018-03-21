@@ -23,12 +23,10 @@ import java.util.Collection;
 import static com.xpanxion.fightinglayoutbugs.ScreenshotCache.Condition.*;
 
 /**
- * <p>
  * Works similar to the {@link SimpleTextDetector}, but additionally
  * hides all images to prevent animated GIF images to influence
  * text detection and tries to detect if there is still some animation
  * by comparing to screenshots (with no images) taken at different times.
- * </p><p>
  * Actually I expected that no animation is found on the analyzed web page,
  * when the text detection is performed, because:<ol>
  *     <li>all JavaScript animations have been stopped</li>
@@ -37,13 +35,12 @@ import static com.xpanxion.fightinglayoutbugs.ScreenshotCache.Condition.*;
  *     <li>all CSS animations have been paused, and</li>
  *     <li>all CSS transitions have been disabled</li>
  * </ol>
- * </p><p>
  * If for any unknown reason there is still animation detected,
  * a {@link AnimationDetectedException} is thrown to prevent false alarm.
- * </p>
  */
 public class AnimationAwareTextDetector extends AbstractTextDetector {
 
+    @Override
     public boolean[][] detectTextPixelsIn(WebPage webPage) throws AnimationDetectedException {
         long startTime = System.currentTimeMillis();
         // 1.) Take initial screenshot of web page with no images ...

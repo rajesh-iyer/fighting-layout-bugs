@@ -47,6 +47,8 @@ public class CompareScreenshots {
 
     /**
      * Updates and returns this {@code CompareScreenshots} object.
+     * @param regionsToIgnore regionsToIgnore
+     * @return returns this {@code CompareScreenshots} object.
      */
     public CompareScreenshots ignore(Collection<RectangularRegion> regionsToIgnore) {
         for (RectangularRegion ignoredRegion : regionsToIgnore) {

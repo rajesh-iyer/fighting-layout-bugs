@@ -134,6 +134,8 @@ public class ScreenshotCache {
 
     /**
      * Bypasses the cache and always takes a screenshot.
+     * @param condition condition
+     * @return screenshot
      */
     @Nonnull
     public Screenshot takeScreenshot(Condition condition) {

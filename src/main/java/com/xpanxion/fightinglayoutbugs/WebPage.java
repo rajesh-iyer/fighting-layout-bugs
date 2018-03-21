@@ -69,6 +69,7 @@ public class WebPage {
      *     <li>will stop all CSS animations</li>
      *     <li>will disable all CSS transitions</li>
      * </ul>
+     * @param driver driver
      */
     public WebPage(WebDriver driver) {
         _driver = driver;
@@ -124,6 +125,7 @@ public class WebPage {
     /**
      * Sets the detector for {@link #getTextPixels()},
      * default is the {@link AnimationAwareTextDetector}.
+     * @param textDetector textDetector
      */
     public void setTextDetector(TextDetector textDetector) {
         if (_textPixels != null) {
@@ -135,6 +137,7 @@ public class WebPage {
     /**
      * Sets the detector for {@link #getHorizontalEdges()} and {@link #getVerticalEdges()},
      * default is the {@link SimpleEdgeDetector}.
+     * @param edgeDetector edgeDetector
      */
     public void setEdgeDetector(EdgeDetector edgeDetector) {
         if (_horizontalEdges != null) {
@@ -148,6 +151,7 @@ public class WebPage {
 
     /**
      * Returns the URL of this web page.
+     * @return URL
      */
     public URL getUrl() {
         if (_url == null) {
@@ -163,13 +167,14 @@ public class WebPage {
 
     /**
      * Returns the source HTML of this web page.
+     * @return source HTML
      */
     @Nonnull
     public String getHtml() {
         String html = (_html == null ? null : _html.get());
         if (html == null) {
             html = _driver.getPageSource();
-            _html = new SoftReference<String>(html);
+            _html = new SoftReference<>(html);
         }
         return html;
     }
@@ -184,6 +189,7 @@ public class WebPage {
 
     /**
      * Bypasses the cache and always takes a screenshot.
+     * @return screenshot
      */
     public Screenshot takeScreenshot() {
         return takeScreenshot(UNMODIFIED);
@@ -191,6 +197,8 @@ public class WebPage {
 
     /**
      * Bypasses the cache and always takes a screenshot.
+     * @param condition condition
+     * @return screenshot
      */
     public Screenshot takeScreenshot(Condition condition) {
         return _screenshotCache.takeScreenshot(condition);
@@ -200,6 +208,7 @@ public class WebPage {
      * Returns a two dimensional array <tt>a</tt>, whereby <tt>a[x][y]</tt> is <tt>true</tt>
      * if the pixel with the coordinates x,y in a {@link #getScreenshot screenshot} of this web page
      * belongs to displayed text, otherwise <tt>a[x][y]</tt> is <tt>false</tt>.
+     * @return two dimensional array
      */
     public boolean[][] getTextPixels() {
         boolean[][] textPixels;
@@ -208,7 +217,7 @@ public class WebPage {
                 _textDetector = new AnimationAwareTextDetector();
             }
             textPixels = _textDetector.detectTextPixelsIn(this);
-            _textPixels = new SoftReference<boolean[][]>(textPixels);
+            _textPixels = new SoftReference<>(textPixels);
         } else {
             textPixels = _textPixels.get();
             if (textPixels == null) {
@@ -249,7 +258,7 @@ public class WebPage {
         if (list.isEmpty()) {
             return Collections.emptySet();
         }
-        Collection<RectangularRegion> result = new ArrayList<RectangularRegion>(list.size());
+        Collection<RectangularRegion> result = new ArrayList<>(list.size());
         for (Map<String, Number> map : list) {
             double left = map.get("left").doubleValue();
             double width = map.get("width").doubleValue();
@@ -280,6 +289,7 @@ public class WebPage {
      * Returns a two dimensional array <tt>a</tt>, whereby <tt>a[x][y]</tt> is <tt>true</tt>
      * if the pixel with the coordinates x,y in a {@link #getScreenshot screenshot} of this web page
      * belongs to a horizontal edge, otherwise <tt>a[x][y]</tt> is <tt>false</tt>.
+     * @return two dimensional array
      */
     public boolean[][] getHorizontalEdges() {
         boolean[][] horizontalEdges;
@@ -288,7 +298,7 @@ public class WebPage {
                 _edgeDetector = new SimpleEdgeDetector();
             }
             horizontalEdges = _edgeDetector.detectHorizontalEdgesIn(this);
-            _horizontalEdges = new SoftReference<boolean[][]>(horizontalEdges);
+            _horizontalEdges = new SoftReference<>(horizontalEdges);
         } else {
             horizontalEdges = _textPixels.get();
             if (horizontalEdges == null) {
@@ -304,6 +314,7 @@ public class WebPage {
      * Returns a two dimensional array <tt>a</tt>, whereby <tt>a[x][y]</tt> is <tt>true</tt>
      * if the pixel with the coordinates x,y in a {@link #getScreenshot screenshot} of this web page
      * belongs to a vertical edge, otherwise <tt>a[x][y]</tt> is <tt>false</tt>.
+     * @return two dimensional array
      */
     public boolean[][] getVerticalEdges() {
         boolean[][] verticalEdges;
@@ -326,6 +337,8 @@ public class WebPage {
 
     /**
      * Returns all elements on this web page for the given find criteria.
+     * @param by by
+     * @return element list
      */
     public List<WebElement> findElements(By by) {
         return _driver.findElements(by);
@@ -333,6 +346,9 @@ public class WebPage {
 
     /**
      * Executes the given JavaScript in the context of this web page.
+     * @param javaScript javaScript
+     * @param arguments arguments
+     * @return Object
      */
     protected Object executeJavaScript(String javaScript, Object... arguments) {
         if (_driver instanceof JavascriptExecutor) {

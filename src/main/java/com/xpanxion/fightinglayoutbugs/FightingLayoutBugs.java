@@ -53,11 +53,11 @@ public class FightingLayoutBugs extends AbstractLayoutBugDetector {
 
     private static final Log LOG = LogFactory.getLog(FightingLayoutBugs.class);
 
-    private List<Runnable> _runAfterAnalysis = new ArrayList<Runnable>();
+    private List<Runnable> _runAfterAnalysis = new ArrayList<>();
 
     private TextDetector _textDetector;
     private EdgeDetector _edgeDetector;
-    private final List<LayoutBugDetector> _detectors = new ArrayList<LayoutBugDetector>();
+    private final List<LayoutBugDetector> _detectors = new ArrayList<>();
     private boolean _debugMode;
 
     /**
@@ -81,6 +81,7 @@ public class FightingLayoutBugs extends AbstractLayoutBugDetector {
 
     /**
      * Sets the {@link TextDetector} to use.
+     * @param textDetector textDetector
      */
     public void setTextDetector(TextDetector textDetector) {
         _textDetector = textDetector;
@@ -88,6 +89,7 @@ public class FightingLayoutBugs extends AbstractLayoutBugDetector {
 
     /**
      * Sets the {@link EdgeDetector} to use.
+     * @param edgeDetector edgeDetector
      */
     public void setEdgeDetector(EdgeDetector edgeDetector) {
         _edgeDetector = edgeDetector;
@@ -107,6 +109,7 @@ public class FightingLayoutBugs extends AbstractLayoutBugDetector {
      * when {@link #findLayoutBugsIn(WebPage) findLayoutBugsIn(...)} is called.
      * If there is already a detector of the same class registered, it will be
      * replaced by the given detector.
+     * @param detector detector
      */
     public void enable(LayoutBugDetector detector) {
         if (detector == null) {
@@ -119,6 +122,7 @@ public class FightingLayoutBugs extends AbstractLayoutBugDetector {
     /**
      * Removes all detectors of the given class from the set of detectors, which will be executed,
      * when {@link #findLayoutBugsIn(WebPage) findLayoutBugsIn(...)} is called.
+     * @param detectorClass detectorClass
      */
     public void disable(Class<? extends LayoutBugDetector> detectorClass) {
         if (detectorClass == null) {
@@ -136,6 +140,9 @@ public class FightingLayoutBugs extends AbstractLayoutBugDetector {
     /**
      * Call this method to gain access to one of the {@link LayoutBugDetector}s
      * for calling setter methods on it.
+     * @param <D> LayoutBugDetector
+     * @param detectorClass detectorClass
+     * @return LayoutBugDetector
      */
     public <D extends LayoutBugDetector> D configure(Class<D> detectorClass) {
         if (detectorClass == null) {
@@ -158,7 +165,10 @@ public class FightingLayoutBugs extends AbstractLayoutBugDetector {
      * <li>configure the {@link TextDetector} to be used via {@link #setTextDetector},</li>
      * <li>configure the {@link EdgeDetector} to be used via {@link #setEdgeDetector}.</li>
      * </ul>
+     * @param webPage webPage
+     * @return Runs all registered {@link LayoutBugDetector}s
      */
+    @Override
     public Collection<LayoutBug> findLayoutBugsIn(@Nonnull WebPage webPage) {
         if (webPage == null) {
             throw new IllegalArgumentException("Method parameter webPage must not be null.");
